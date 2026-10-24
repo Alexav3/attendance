@@ -13,9 +13,12 @@ const defaultEmployees = [
 function App() {
   const [records, setRecords] = useState(() => {
     const savedRecords = localStorage.getItem("attendanceRecords");
-
     return savedRecords ? JSON.parse(savedRecords) : {};
   });
+
+  const [editingEmployee, setEditingEmployee] = useState(null);
+  const [manualClockIn, setManualClockIn] = useState("");
+  const [manualClockOut, setManualClockOut] = useState("");
 
   useEffect(() => {
     localStorage.setItem(
@@ -32,31 +35,23 @@ function App() {
     return new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
     });
   }
 
   function clockIn(employee) {
     const today = getToday();
 
-    setRecords((previousRecords) => {
-      const employeeRecords =
-        previousRecords[today]?.[employee] || {};
-
-      return {
-        ...previousRecords,
-
-        [today]: {
-          ...previousRecords[today],
-
-          [employee]: {
-            ...employeeRecords,
-            clockIn: getCurrentTime(),
-            clockOut: null,
-          },
+    setRecords((previousRecords) => ({
+      ...previousRecords,
+      [today]: {
+        ...previousRecords[today],
+        [employee]: {
+          ...previousRecords[today]?.[employee],
+          clockIn: getCurrentTime(),
+          clockOut: null,
         },
-      };
-    });
+      },
+    }));
   }
 
   function clockOut(employee) {
@@ -69,16 +64,47 @@ function App() {
 
     setRecords((previousRecords) => ({
       ...previousRecords,
-
       [today]: {
         ...previousRecords[today],
-
         [employee]: {
-          ...previousRecords[today][employee],
+          ...previousRecords[today]?.[employee],
           clockOut: getCurrentTime(),
         },
       },
     }));
+  }
+
+  function startEditing(employee) {
+    const today = getToday();
+    const employeeRecord = records[today]?.[employee] || {};
+
+    setEditingEmployee(employee);
+    setManualClockIn(employeeRecord.clockIn || "");
+    setManualClockOut(employeeRecord.clockOut || "");
+  }
+
+  function saveManualTimes(employee) {
+    const today = getToday();
+
+    setRecords((previousRecords) => ({
+      ...previousRecords,
+      [today]: {
+        ...previousRecords[today],
+        [employee]: {
+          ...previousRecords[today]?.[employee],
+          clockIn: manualClockIn || null,
+          clockOut: manualClockOut || null,
+        },
+      },
+    }));
+
+    setEditingEmployee(null);
+  }
+
+  function cancelEditing() {
+    setEditingEmployee(null);
+    setManualClockIn("");
+    setManualClockOut("");
   }
 
   const today = getToday();
@@ -108,52 +134,99 @@ function App() {
             <div className="employee-card" key={employee}>
               <h2>{employee}</h2>
 
-              <div className="attendance-info">
-                <p>
-                  Clock In:
-                  <strong>
-                    {" "}
-                    {clockedIn || "--"}
-                  </strong>
-                </p>
+              {editingEmployee === employee ? (
+                <div className="edit-section">
+                  <label>
+                    Clock In
+                    <input
+                      type="time"
+                      value={manualClockIn}
+                      onChange={(event) =>
+                        setManualClockIn(event.target.value)
+                      }
+                    />
+                  </label>
 
-                <p>
-                  Clock Out:
-                  <strong>
-                    {" "}
-                    {clockedOut || "--"}
-                  </strong>
-                </p>
-              </div>
+                  <label>
+                    Clock Out
+                    <input
+                      type="time"
+                      value={manualClockOut}
+                      onChange={(event) =>
+                        setManualClockOut(event.target.value)
+                      }
+                    />
+                  </label>
 
-              <div className="buttons">
-                <button
-                  className="clock-in"
-                  onClick={() => clockIn(employee)}
-                  disabled={clockedIn && !clockedOut}
-                >
-                  Clock In
-                </button>
+                  <div className="buttons">
+                    <button
+                      className="save-button"
+                      onClick={() =>
+                        saveManualTimes(employee)
+                      }
+                    >
+                      Save
+                    </button>
 
-                <button
-                  className="clock-out"
-                  onClick={() => clockOut(employee)}
-                  disabled={!clockedIn || clockedOut}
-                >
-                  Clock Out
-                </button>
-              </div>
+                    <button
+                      className="cancel-button"
+                      onClick={cancelEditing}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="attendance-info">
+                    <p>
+                      Clock In:{" "}
+                      <strong>{clockedIn || "--"}</strong>
+                    </p>
 
-              {clockedIn && !clockedOut && (
-                <p className="working">
-                  ● Currently Working
-                </p>
-              )}
+                    <p>
+                      Clock Out:{" "}
+                      <strong>{clockedOut || "--"}</strong>
+                    </p>
+                  </div>
 
-              {clockedOut && (
-                <p className="completed">
-                  ✓ Shift Completed
-                </p>
+                  <div className="buttons">
+                    <button
+                      className="clock-in"
+                      onClick={() => clockIn(employee)}
+                      disabled={clockedIn && !clockedOut}
+                    >
+                      Clock In
+                    </button>
+
+                    <button
+                      className="clock-out"
+                      onClick={() => clockOut(employee)}
+                      disabled={!clockedIn || clockedOut}
+                    >
+                      Clock Out
+                    </button>
+                  </div>
+
+                  <button
+                    className="edit-button"
+                    onClick={() => startEditing(employee)}
+                  >
+                    Edit Time
+                  </button>
+
+                  {clockedIn && !clockedOut && (
+                    <p className="working">
+                      ● Currently Working
+                    </p>
+                  )}
+
+                  {clockedOut && (
+                    <p className="completed">
+                      ✓ Shift Completed
+                    </p>
+                  )}
+                </>
               )}
             </div>
           );

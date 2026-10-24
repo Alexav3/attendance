@@ -112,3 +112,40 @@ button:disabled {
   font-weight: 600;
   color: #555;
 }
+.edit-button {
+  width: 100%;
+  margin-top: 12px;
+  background: #555;
+  color: white;
+}
+
+.edit-section {
+  margin-top: 10px;
+}
+
+.edit-section label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.edit-section input {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 18px;
+  background: white;
+}
+
+.save-button {
+  background: #16803c;
+  color: white;
+}
+
+.cancel-button {
+  background: #666;
+  color: white;
+}

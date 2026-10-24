@@ -141,7 +141,7 @@ button {
   display: grid;
 
   grid-template-columns:
-    repeat(6, 1fr);
+    repeat(7, 1fr);
 
   gap: 5px;
 

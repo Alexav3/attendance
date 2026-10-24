@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
 const employees = [
-  "Alejandro",
   "Kantanga",
   "Johnny",
   "Oscar",

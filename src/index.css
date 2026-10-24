@@ -1,0 +1,638 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  background: #f4f6f8;
+  color: #111;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+
+  padding: 26px 16px 60px;
+}
+
+/* HEADER */
+
+.header {
+  margin-bottom: 22px;
+}
+
+.header h1 {
+  margin: 0;
+
+  font-size: 32px;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+
+  color: #666;
+}
+
+/* SECTIONS */
+
+.week-section,
+.selected-day-section,
+.report-section,
+.danger-section {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  margin-bottom: 18px;
+
+  box-shadow:
+    0 3px 12px
+    rgba(0, 0, 0, 0.06);
+}
+
+.section-label {
+  margin: 0 0 5px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #777;
+}
+
+/* WEEK */
+
+.week-title-row {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.week-title {
+  margin: 0;
+
+  font-size: 21px;
+}
+
+.today-button {
+  border: 0;
+
+  border-radius: 9px;
+
+  padding: 9px 14px;
+
+  background: #222;
+  color: white;
+
+  font-weight: 650;
+}
+
+.week-navigation {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 16px;
+}
+
+.week-arrow {
+  flex: 1;
+
+  border:
+    1px solid #ddd;
+
+  border-radius: 9px;
+
+  padding: 10px;
+
+  background: white;
+
+  font-weight: 600;
+}
+
+.day-tabs {
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, 1fr);
+
+  gap: 5px;
+
+  margin-top: 15px;
+}
+
+.day-tab {
+  min-width: 0;
+
+  border:
+    1px solid #ddd;
+
+  border-radius: 9px;
+
+  padding: 8px 2px;
+
+  background: #f5f5f5;
+}
+
+.day-tab span {
+  display: block;
+
+  font-size: 10px;
+}
+
+.day-tab strong {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 15px;
+}
+
+.active-day {
+  background: #222;
+  color: white;
+}
+
+/* SELECTED DAY */
+
+.selected-date-title {
+  margin:
+    0
+    0
+    14px;
+
+  font-size: 21px;
+}
+
+.day-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 9px;
+}
+
+.secondary-button,
+.day-off-all-button {
+  border: 0;
+
+  border-radius: 9px;
+
+  padding: 12px;
+
+  font-weight: 650;
+}
+
+.secondary-button {
+  background: #222;
+  color: white;
+}
+
+.day-off-all-button {
+  background: #e9e9e9;
+}
+
+/* EMPLOYEES */
+
+.employee-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.employee-card {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 3px 12px
+    rgba(0, 0, 0, 0.07);
+}
+
+.employee-heading {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.employee-card h2 {
+  margin:
+    0
+    0
+    14px;
+
+  font-size: 26px;
+}
+
+.attendance-info p {
+  margin:
+    7px
+    0;
+
+  font-size: 17px;
+}
+
+.buttons {
+  display: flex;
+
+  gap: 9px;
+
+  margin-top: 15px;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+.clock-in,
+.clock-out,
+.save-button,
+.cancel-button,
+.edit-button,
+.day-off-button,
+.remove-day-off-button {
+  min-height: 48px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  padding: 11px 13px;
+
+  font-weight: 650;
+}
+
+.clock-in {
+  background: #168b43;
+  color: white;
+}
+
+.clock-out {
+  background: #c83d3d;
+  color: white;
+}
+
+button:disabled {
+  background: #bbb;
+  color: #eee;
+}
+
+.employee-options {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    1fr;
+
+  gap: 9px;
+
+  margin-top: 10px;
+}
+
+.edit-button {
+  background: #5b5b5b;
+  color: white;
+}
+
+.day-off-button {
+  background: #ececec;
+}
+
+.working,
+.completed,
+.no-record {
+  margin:
+    14px
+    0
+    0;
+
+  font-weight: 600;
+}
+
+.working {
+  color: #168b43;
+}
+
+.completed {
+  color: #555;
+}
+
+.no-record {
+  color: #999;
+}
+
+/* DAY OFF */
+
+.day-off-badge {
+  padding:
+    5px
+    9px;
+
+  border-radius: 20px;
+
+  background: #ededed;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.day-off-message {
+  color: #666;
+}
+
+.remove-day-off-button {
+  width: 100%;
+
+  background: #555;
+  color: white;
+}
+
+/* EDIT */
+
+.edit-section label {
+  display: block;
+
+  margin-bottom: 14px;
+
+  font-weight: 600;
+}
+
+.edit-section input {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 6px;
+
+  padding: 12px;
+
+  border:
+    1px solid #ccc;
+
+  border-radius: 8px;
+
+  background: white;
+
+  font-size: 18px;
+}
+
+.save-button {
+  background: #168b43;
+  color: white;
+}
+
+.cancel-button {
+  background: #666;
+  color: white;
+}
+
+/* WEEKLY REPORT */
+
+.report-section h2 {
+  margin: 0;
+}
+
+.report-description {
+  margin:
+    4px
+    0
+    16px;
+
+  color: #777;
+}
+
+.weekly-columns {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.day-report-card {
+  border:
+    1px solid #ddd;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.day-report-header {
+  padding:
+    12px
+    14px;
+
+  background: #f1f1f1;
+}
+
+.day-report-header strong {
+  display: block;
+
+  font-size: 17px;
+}
+
+.day-report-header span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #666;
+
+  font-size: 13px;
+}
+
+.day-report-list {
+  background: white;
+}
+
+.report-row {
+  display: grid;
+
+  grid-template-columns:
+    105px
+    1fr;
+
+  gap: 10px;
+
+  padding:
+    11px
+    14px;
+
+  border-top:
+    1px solid #eee;
+
+  align-items: center;
+}
+
+.report-name {
+  font-weight: 650;
+}
+
+.report-time {
+  display: flex;
+
+  justify-content:
+    flex-end;
+
+  align-items: center;
+
+  gap: 6px;
+
+  text-align: right;
+
+  font-size: 14px;
+}
+
+.report-divider {
+  color: #999;
+}
+
+.report-day-off {
+  font-weight: 700;
+
+  color: #666;
+}
+
+.report-empty {
+  color: #aaa;
+}
+
+.weekly-export-button {
+  width: 100%;
+
+  margin-top: 16px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  padding: 14px;
+
+  background: #222;
+  color: white;
+
+  font-weight: 700;
+}
+
+/* RESET */
+
+.danger-section h2 {
+  margin-top: 0;
+}
+
+.danger-section p {
+  color: #666;
+
+  line-height: 1.4;
+}
+
+.clear-day-button,
+.clear-week-button {
+  width: 100%;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  padding: 13px;
+
+  font-weight: 700;
+}
+
+.clear-day-button {
+  margin-bottom: 9px;
+
+  background: #ededed;
+}
+
+.clear-week-button {
+  background: #b92c2c;
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+  .container {
+    padding:
+      22px
+      13px
+      50px;
+  }
+
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .week-section,
+  .selected-day-section,
+  .report-section,
+  .danger-section {
+    padding: 15px;
+  }
+
+  .employee-card {
+    padding: 18px;
+  }
+
+  .day-actions {
+    grid-template-columns:
+      1fr;
+  }
+
+  .report-row {
+    grid-template-columns:
+      90px
+      1fr;
+
+    padding:
+      10px
+      12px;
+  }
+
+  .report-time {
+    font-size: 13px;
+  }
+}
